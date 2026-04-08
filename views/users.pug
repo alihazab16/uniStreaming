@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title User Directory
+    link(rel="stylesheet", href="/style.css")
+
+  body
+
+    include partials/header
+
+    h1 User Directory
+
+    #userList
+      each u in users
+        div.serviceRow(
+          style=(u.privacy ? "opacity:0.4;cursor:default;" : "cursor:pointer;")
+          data-uid=u._id
+          data-private=(u.privacy ? "true" : "false")
+        )
+          if u.privacy
+            span.username #{u.username} (private)
+          else
+            a(href="/users/" + u._id)= u.username
+          img.remove(src="/remove.svg" data-id=u._id width="20")
+
+    script(src="/users.js")

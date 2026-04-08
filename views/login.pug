@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title Login – AzabPlex Cinema
+    link(rel="stylesheet", href="/style.css")
+
+  body
+
+    include partials/header
+
+    h1 Sign In
+
+    if error
+      p.error-msg(style="color:red;text-align:center") #{error}
+
+    form(method="POST" action="/login")
+      .form-group
+        label Username:
+        input(type="text" name="username" required)
+
+      .form-group
+        label Password:
+        input(type="password" name="password" required)
+
+      button(type="submit") Sign In
+
+    p
+      | Don't have an account?
+      a(href="/register")  Register here

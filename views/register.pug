@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title Register – AzabPlex Cinema
+    link(rel="stylesheet", href="/style.css")
+
+  body
+
+    include partials/header
+
+    h1 Create Account
+
+    if error
+      p.error-msg(style="color:red;text-align:center") #{error}
+
+    form(method="POST" action="/register")
+      .form-group
+        label Username:
+        input(type="text" name="username" required)
+
+      .form-group
+        label Password:
+        input(type="password" name="password" required)
+
+      .form-group
+        label Private Account:
+        input(type="checkbox" name="privacy")
+
+      button(type="submit") Register
+
+    p
+      | Already have an account?
+      a(href="/login")  Sign in here

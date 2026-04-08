@@ -1,0 +1,43 @@
+header
+  .nav
+    img.logo(src="/logo.svg")
+
+    a(
+      href="/"
+      class=(page === "home" ? "active" : "")
+    )  Home
+
+    if user
+      a(
+        href="/order"
+        class=(page === "order" ? "active" : "")
+      )  Order Form
+
+      a(
+        href="/stats"
+        class=(page === "stats" ? "active" : "")
+      )  Statistics
+
+      if user.admin
+        a(
+          href="/services"
+          class=(page === "admin" ? "active" : "")
+        )  Services
+
+        a(
+          href="/users"
+          class=(page === "users" ? "active" : "")
+        )  Users
+
+      a(
+        href="/users/" + user._id
+        class=(page === "profile" ? "active" : "")
+      )  Profile
+
+      a(href="/logout")  Logout
+
+    else
+      a(
+        href="/login"
+        class=(page === "login" ? "active" : "")
+      )  Login

@@ -1,0 +1,79 @@
+doctype html
+html
+  head
+    title User Profile
+    link(rel="stylesheet", href="/style.css")
+
+  body
+
+    include partials/header
+
+    h1 Profile: #{profileUser.username}
+
+    h2 Edit Profile
+
+    div
+      label Username:
+      input(type="text" id="profileUsername" value=profileUser.username)
+
+    div
+      label Password:
+      input(type="password" id="profilePassword" placeholder="*****")
+
+    div
+      label Confirm Password:
+      input(type="password" id="profileConfirm" placeholder="*****")
+
+    div
+      label Private Account:
+      input(type="checkbox" id="profilePrivacy" checked=profileUser.privacy)
+
+    button(onclick="saveProfile()") Save Changes
+
+    hr
+
+    h2 Order History
+
+    if orders.length === 0
+      p No orders placed yet.
+    else
+      each order in orders
+        .statBox
+          p
+            strong Order ID:
+            |  #{order._id}
+          p
+            strong Subtotal:
+            |  $#{order.subtotal}
+          p
+            strong Tax:
+            |  $#{order.tax}
+          p
+            strong Total:
+            |  $#{order.total}
+
+          if order.fees
+            p
+              strong Fees:
+              |  #{JSON.stringify(order.fees)}
+
+          if order.movies
+            each movieList, serviceName in order.movies
+              h4= serviceName
+              table(border="1")
+                tr
+                  th ID
+                  th Title
+                  th Year
+                each m in movieList
+                  tr
+                    td= m.id
+                    td= m.title
+                    td= m.year
+
+          hr
+
+    script.
+      const profileUserID = "!{profileUser._id}";
+
+    script(src="/userProfile.js")
