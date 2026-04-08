@@ -414,3 +414,4 @@ if (process.env.NODE_ENV !== "production") {
         console.log(`DB ready: ${sCount} services, ${uCount} users.`);
     });
 }
+module.exports = app;
