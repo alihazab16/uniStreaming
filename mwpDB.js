@@ -1,40 +1,55 @@
-
-// Get the MongoClient class from the mondodb module
 const { MongoClient } = require("mongodb");
 
-// Connection URL for the MongoDB server (default port for Mongo is 27017)
-const url = "mongodb://localhost:27017"; 
-const dbName = "mwp";        // This is the name of our database ("Movie Weekend Planner")
+// Use environment variable instead of localhost
+const url = process.env.MONGO_URI;
 
-// Create a MongoClient instance
-const client = new MongoClient(url);
+// Database name
+const dbName = "mwp";
 
-let db = null;   // The database connection (null upon start)
+let client = null;
+let db = null;
 
 // Connect to the database
 async function connectToDatabase() {
-    if (!db) { // If not already connected, connect now
-        try {
-            await client.connect();
-            db = client.db(dbName);
-            console.log("Connected to MongoDB: " + dbName);
-        } catch (err) {
-            console.error("Error connecting to MongoDB:", err);
-            throw err; // re-throw this error so that the caller knows it failed
+    try {
+        // If already connected, reuse it
+        if (db) return db;
+
+        if (!url) {
+            throw new Error("MONGO_URI is not defined. Did you add it to your environment variables?");
         }
+
+        client = new MongoClient(url);
+
+        await client.connect();
+
+        db = client.db(dbName);
+
+        console.log("✅ Connected to MongoDB Atlas");
+
+        return db;
+
+    } catch (err) {
+        console.error("❌ Error connecting to MongoDB:", err);
+        throw err;
     }
-    return db;
 }
 
 // Disconnect from the database
 async function disconnectFromDatabase() {
     try {
-        await client.close();
-        db = null;  // Reset so next call to connectToDatabase() works properly
-        console.log("Disconnected from MongoDB: " + dbName);
+        if (client) {
+            await client.close();
+            client = null;
+            db = null;
+            console.log("Disconnected from MongoDB");
+        }
     } catch (err) {
         console.error("Error disconnecting from MongoDB:", err);
     }
 }
 
-module.exports = { connectToDatabase, disconnectFromDatabase };
+module.exports = {
+    connectToDatabase,
+    disconnectFromDatabase
+};
