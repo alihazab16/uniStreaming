@@ -1,29 +1,25 @@
-doctype html
-html
-  head
-    title Login – AzabPlex Cinema
-    link(rel="stylesheet", href="/style.css")
+extends layout
 
-  body
+block title
+  title Login – AzabPlex Cinema
 
-    include partials/header
+block content
+  h1 Sign In
 
-    h1 Sign In
+  if error
+    p.error-msg(style="color:red;text-align:center") #{error}
 
-    if error
-      p.error-msg(style="color:red;text-align:center") #{error}
+  form(method="POST" action="/login")
+    .form-group
+      label Username:
+      input(type="text" name="username" required)
 
-    form(method="POST" action="/login")
-      .form-group
-        label Username:
-        input(type="text" name="username" required)
+    .form-group
+      label Password:
+      input(type="password" name="password" required)
 
-      .form-group
-        label Password:
-        input(type="password" name="password" required)
+    button(type="submit") Sign In
 
-      button(type="submit") Sign In
-
-    p
-      | Don't have an account?
-      a(href="/register")  Register here
+  p
+    | Don't have an account?
+    a(href="/register")  Register here

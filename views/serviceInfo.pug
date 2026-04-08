@@ -1,11 +1,9 @@
-doctype html
-html
-  head
-    title Service Info
-    link(rel="stylesheet", href="/style.css")
-  body
+extends layout
 
-    include partials/header
+block title
+  title Service Info
+
+block content
 
     h1= service.name
 
@@ -86,7 +84,8 @@ html
             td
               img(src="/remove.svg", width="20", onclick=`deleteMovie(${m.id})`)
 
-    script.
-      const serviceID = !{service.id};
+block scripts
+  script.
+    const serviceID = !{service.id};
 
-    script(src="/serviceInfo.js")
+  script(src="/serviceInfo.js")

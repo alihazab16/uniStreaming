@@ -1,22 +1,15 @@
-doctype html
-html
-  head
-    title AzabPlex Cinema
-    link(rel="stylesheet", href="/style.css")
+extends layout
 
-  body
+block content
+  if user
+    h1 Welcome to AzabPlex Cinema, #{user.username}!
+  else
+    h1 Welcome to AzabPlex Cinema
 
-    include partials/header
-
-    if user
-      h1 Welcome to AzabPlex Cinema, #{user.username}!
-    else
-      h1 Welcome to AzabPlex Cinema
-
-    p Select "Order Form" to start ordering movies from streaming services.
-    if !user
-      p Please
-        a(href="/login")  log in
-        |  or
-        a(href="/register")  register
-        |  to place an order.
+  p Select "Order Form" to start ordering movies from streaming services.
+  if !user
+    p Please
+      a(href="/login")  log in
+      |  or
+      a(href="/register")  register
+      |  to place an order.
