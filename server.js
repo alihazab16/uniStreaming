@@ -403,11 +403,14 @@ app.delete("/services/:sID/movies/:mID", requireAdmin, async (req, res) => {
 });
 
 // ─── Start ────────────────────────────────────────────────────────────────────
-app.listen(PORT, async () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-    // Verify DB connection on startup
-    const db = await connectToDatabase();
-    const sCount = await db.collection("services").countDocuments();
-    const uCount = await db.collection("users").countDocuments();
-    console.log(`DB ready: ${sCount} services, ${uCount} users.`);
-});
+if (process.env.NODE_ENV !== "production") {
+    app.listen(PORT, async () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+        
+        // Verify DB connection on startup
+        const db = await connectToDatabase();
+        const sCount = await db.collection("services").countDocuments();
+        const uCount = await db.collection("users").countDocuments();
+        console.log(`DB ready: ${sCount} services, ${uCount} users.`);
+    });
+}
