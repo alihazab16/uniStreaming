@@ -1,26 +1,23 @@
-doctype html
-html
-  head
-    title Admin Services
-    link(rel="stylesheet", href="/style.css")
+extends layout
 
-  body
+block title
+  title Admin Services
 
-    include partials/header
+block content
+  h1 Streaming Services
 
-    h1 Streaming Services
+  #serviceList
+    each service in services
+      div.serviceRow
+        a(href="/services/" + service.id)= service.name
+        img.remove(src="/remove.svg" data-id=service.id width="20")
 
-    #serviceList
-      each service in services
-        div.serviceRow
-          a(href="/services/" + service.id)= service.name
-          img.remove(src="/remove.svg" data-id=service.id width="20")
+  hr
 
-    hr
+  h2 Add Service
 
-    h2 Add Service
+  input#newServiceName(type="text" placeholder="Service name")
+  button#addServiceBtn Add Service
 
-    input#newServiceName(type="text" placeholder="Service name")
-    button#addServiceBtn Add Service
-
-    script(src="/admin.js")
+block scripts
+  script(src="/admin.js")

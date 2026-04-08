@@ -1,12 +1,9 @@
-doctype html
-html
-  head
-    title User Profile
-    link(rel="stylesheet", href="/style.css")
+extends layout
 
-  body
+block title
+  title User Profile
 
-    include partials/header
+block content
 
     h1 Profile: #{profileUser.username}
 
@@ -73,7 +70,8 @@ html
 
           hr
 
-    script.
-      const profileUserID = "!{profileUser._id}";
+block scripts
+  script.
+    const profileUserID = "!{profileUser._id}";
 
-    script(src="/userProfile.js")
+  script(src="/userProfile.js")
