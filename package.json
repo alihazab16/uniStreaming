@@ -1,0 +1,15 @@
+{
+  "name": "unistreaming",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pug": "^3.0.2",
+    "express-session": "^1.17.3",
+    "mongodb": "^6.4.0"
+  }
+}
