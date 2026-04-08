@@ -1,0 +1,22 @@
+{
+  "name": "uni-streaming",
+  "version": "1.0.0",
+  "description": "AzabPlex Cinema - Streaming service order management",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "init-db": "node initializeDatabase.js"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mongodb": "^6.3.0",
+    "pug": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
