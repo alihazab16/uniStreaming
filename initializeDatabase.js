@@ -93,6 +93,12 @@ async function populateOrders(db) {
 async function main() {
     const client = new MongoClient(process.env.MONGO_URI);
 
+	const uri = process.env.MONGO_URI;
+
+if (!uri) {
+  throw new Error("MONGO_URI is not defined");
+}
+	
     try {
         await client.connect();
         const db = client.db(DB_NAME);
