@@ -91,7 +91,7 @@ async function populateOrders(db) {
 
 // This code will populate the "mwp" database
 async function main() {
-    const client = new MongoClient(MONGO_URL);
+    const client = new MongoClient(process.env.MONGO_URI);
 
     try {
         await client.connect();
