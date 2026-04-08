@@ -403,15 +403,22 @@ app.delete("/services/:sID/movies/:mID", requireAdmin, async (req, res) => {
 });
 
 // ─── Start ────────────────────────────────────────────────────────────────────
-if (process.env.NODE_ENV !== "production") {
+// ─── Start ────────────────────────────────────────────────────────────────────
+const isVercelBuild = process.env.VERCEL === '1' || process.env.NODE_ENV === 'production';
+
+if (!isVercelBuild) {
     app.listen(PORT, async () => {
         console.log(`Server running on http://localhost:${PORT}`);
         
-        // Verify DB connection on startup
-        const db = await connectToDatabase();
-        const sCount = await db.collection("services").countDocuments();
-        const uCount = await db.collection("users").countDocuments();
-        console.log(`DB ready: ${sCount} services, ${uCount} users.`);
+        try {
+            const db = await connectToDatabase();
+            const sCount = await db.collection("services").countDocuments();
+            const uCount = await db.collection("users").countDocuments();
+            console.log(`DB ready: ${sCount} services, ${uCount} users.`);
+        } catch (err) {
+            console.error("DB startup check failed:", err.message);
+        }
     });
 }
+
 module.exports = app;
