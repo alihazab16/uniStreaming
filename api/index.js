@@ -1,2 +1,5 @@
-const app = require("../your-main-file"); // adjust path
-module.exports = app;
+const app = require("../server");
+
+module.exports = (req, res) => {
+  return app(req, res);
+};
